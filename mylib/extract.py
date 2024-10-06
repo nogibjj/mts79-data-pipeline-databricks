@@ -4,6 +4,7 @@ JSON or CSV formats tend to work well.
 
 Marriage dataset.
 """
+import os
 import requests
 
 def extract(
@@ -12,10 +13,10 @@ def extract(
     file_path="data/births.csv"
 ):
     """Extract a URL to a file path."""
+    # Create the directory if it doesn't exist
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    
     with requests.get(url) as r:
         with open(file_path, 'wb') as f:
             f.write(r.content)
     return file_path
-
-
-
