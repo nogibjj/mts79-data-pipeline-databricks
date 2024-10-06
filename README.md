@@ -16,8 +16,8 @@ This project demonstrates how to use Python scripting to connect to an SQLite da
   - [Querying the Database](#querying-the-database)
   - [Running Tests](#running-tests)
 - [Query Logs](#query-logs)
-- [Makefile](#makefile)
-- [CI/CD Pipeline](#cicd-pipeline)
+- [Makefile and CI/CD Pipeline](#makefile-and-CI/CD-Pipeline)
+
 
 ## Project Structure
 
@@ -100,7 +100,7 @@ pytest test_main.py
 
 All the queries performed through the `query.py` script are logged in the `query_log.md` file. You can refer to this file to track the operations and any SQL commands executed during the project's runtime.
 
-## Makefile and CI/CD
+## Makefile and CI/CD Pipeline
 This project includes a `Makefile` to automate common tasks such as extract, tranform and load, query, as well as, format, lint, and test.
 
 A CI/CD pipeline has been set up using GitHub Actions. The workflow configuration is in `.github/workflows/cicd.yml`
