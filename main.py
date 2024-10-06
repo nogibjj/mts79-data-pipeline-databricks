@@ -4,7 +4,7 @@ ETL-Query script
 
 from mylib.extract import extract
 from mylib.transform_load import load
-from mylib.query import *
+from mylib.query import create_record, read_data, update_record, delete_record
 
 # Extract
 print("Extracting data...")

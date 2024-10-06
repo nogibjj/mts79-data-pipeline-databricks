@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch
 from mylib.query import create_record, read_data, update_record, delete_record
 
