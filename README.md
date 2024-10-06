@@ -1,42 +1,106 @@
-## SQLite Lab
+# SQLite Lab
 
-![4 17-etl-sqlite-RAW](https://github.com/nogibjj/sqlite-lab/assets/58792/b39b21b4-ccb4-4cc4-b262-7db34492c16d)
+[![CICD](https://github.com/nogibjj/mts79-sqlite-lab/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/mts79-sqlite-lab/actions/workflows/cicd.yml)
 
-
-
-### Lab:
-
-* Use an AI Assistant, but use a different one then you used from a previous lab (Anthropic's Claud, Bard, Copilot, CodeWhisperer, Colab AI, etc)
-* ETL-Query:  [E] Extract a dataset from URL, [T] Transform, [L] Load into SQLite Database and [Q] Query
-For the ETL-Query lab:
-* [E] Extract a dataset from a URL like Kaggle or data.gov. JSON or CSV formats tend to work well.
-* [T] Transform the data by cleaning, filtering, enriching, etc to get it ready for analysis.
-* [L] Load the transformed data into a SQLite database table using Python's sqlite3 module.
-* [Q] Write and execute SQL queries on the SQLite database to analyze and retrieve insights from the data.
-
-#### Tasks:
-
-* Fork this project and get it to run
-* Make the query more useful and not a giant mess that prints to screen
-* Convert the main.py into a command-line tool that lets you run each step independantly
-* Fork this project and do the same thing for a new dataset you choose
-* Make sure your project passes lint/tests and has a built badge
-* Include an architectural diagram showing how the project works
-
-#### Reflection Questions
-
-* What challenges did you face when extracting, transforming, and loading the data? How did you overcome them?
-* What insights or new knowledge did you gain from querying the SQLite database?
-* How can SQLite and SQL help make data analysis more efficient? What are the limitations?
-* What AI assistant did you use and how did it compare to others you've tried? What are its strengths and weaknesses?
-* If you could enhance this lab, what would you add or change? What other data would be interesting to load and query?
-
-##### Challenge Exercises
-
-* Add more transformations to the data before loading it into SQLite. Ideas: join with another dataset, aggregate by categories, normalize columns.
-* Write a query to find correlated fields in the data. Print the query results nicely formatted.
-* Create a second table in the SQLite database and write a join query with the two tables.
-* Build a simple Flask web app that runs queries on demand and displays results.
-* Containerize the application using Docker so the database and queries can be portable
+## Project Overview
+This project demonstrates how to use Python scripting to connect to an SQLite database and manipulate data using an ETL (Extract, Transform, Load) approach. It utilizes the births dataset from [FiveThirtyEight's data repository](https://github.com/fivethirtyeight/data)
 
 
+## Table of Contents
+
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Extracting Data](#extracting-data)
+  - [Transforming and Loading Data](#transforming-and-loading-data)
+  - [Querying the Database](#querying-the-database)
+  - [Running Tests](#running-tests)
+- [Query Logs](#query-logs)
+- [Makefile](#makefile)
+- [CI/CD Pipeline](#cicd-pipeline)
+
+## Project Structure
+
+```
+.
+├── data/
+│   └── births.csv
+├── mylib/
+│   ├── __init__.py
+│   ├── extract.py
+│   ├── transform_load.py
+│   └── query.py
+├── main.py
+├── test_main.py
+├── query_log.md
+├── Makefile
+├── .github/
+│   └──cicd.yml
+└── README.md
+```
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nogibjj/mts79-sqlite-lab
+   cd mts79-sqlite-lab
+   ```
+
+2. Install the required Python packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. (Optional) Set up a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows use `venv\Scripts\activate`
+   ```
+
+## Usage
+
+### Extracting Data
+
+To extract the births dataset into a CSV file, run the following script:
+
+```bash
+python mylib/extract.py
+```
+
+This will extract the births dataset and save it as `data/births.csv`.
+
+### Transforming and Loading Data
+
+After extracting the data, the next step is to load it into an SQLite database. The script `transform_load.py` performs the following steps:
+- Creates a SQLite database `birthsDB`
+- Adds a table `USBirths` and loads all the data from the CSV file into this table
+
+To run the transformation and loading steps:
+
+```bash
+python mylib/transform_load.py
+```
+
+### Querying the Database
+
+Once the data has been loaded into the database, you can query it using SQL commands through Python. The `query.py` script contains functionality to perform CRUD operations.
+
+You can modify the script to include specific queries or operations.
+
+### Running Tests
+
+Tests are included to ensure that all the functions work correctly. To run the tests, use the following command:
+
+```bash
+pytest test_main.py
+```
+
+## Query Logs
+
+All the queries performed through the `query.py` script are logged in the `query_log.md` file. You can refer to this file to track the operations and any SQL commands executed during the project's runtime.
+
+## Makefile and CI/CD
+This project includes a `Makefile` to automate common tasks such as extract, tranform and load, query, as well as, format, lint, and test.
+
+A CI/CD pipeline has been set up using GitHub Actions. The workflow configuration is in `.github/workflows/cicd.yml`
