@@ -7,7 +7,8 @@ import requests
 
 def extract(
     url="""
-    https://github.com/fivethirtyeight/data/raw/refs/heads/master/
+    https://github.com/fivethirtyeight/
+    data/raw/refs/heads/master/
     births/US_births_2000-2014_SSA.csv
     """,
     file_path="data/births.csv"):
