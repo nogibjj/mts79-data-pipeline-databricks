@@ -16,9 +16,32 @@ def load(dataset="/workspaces/mts79-sqlite-lab/data/births.csv"):
     conn = sqlite3.connect('birthsDB.db')
     c = conn.cursor()
     c.execute("DROP TABLE IF EXISTS USBirths")
-    c.execute("CREATE TABLE USBirths (year INTEGER, month INTEGER, date_of_month INTEGER, day_of_week INTEGER, births INTEGER)")
+    c.execute("""
+    CREATE TABLE USBirths (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        year INTEGER,
+        month INTEGER,
+        date_of_month INTEGER,
+        day_of_week INTEGER,
+        births INTEGER
+    )
+""")
+
     #insert
-    c.executemany("INSERT INTO USBirths VALUES (?,?,?,?,?)", payload)
+    c.executemany(
+        """
+        INSERT INTO USBirths (
+            year, 
+            month, 
+            date_of_month, 
+            day_of_week, 
+            births
+            ) 
+            VALUES (?, ?, ?, ?, ?)""",
+        payload,
+    )
+
+
     conn.commit()
     conn.close()
     return "birthsDB.db"
