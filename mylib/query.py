@@ -118,20 +118,3 @@ def read_data():
     log_query("SELECT * FROM USBirths LIMIT 10;")
     conn.close()
     return data
-
-
-if __name__ == "__main__":
-    # Create a record
-    create_record(1999, 11, 17, 3, 77777)
-
-    # Read the first 10 rows of the data
-    data = read_data()
-    print(data)
-
-    # Update a record
-    update_record(7, 2000, 1, 1, 6, 9100)
-
-    # Delete a record
-    delete_record(8)
-
-

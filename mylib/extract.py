@@ -13,9 +13,6 @@ def extract(url="https://github.com/fivethirtyeight/data/raw/refs/heads/master/b
             f.write(r.content)
     return file_path
 
-if __name__ == "__main__":
-    extract()
-
 
 
 

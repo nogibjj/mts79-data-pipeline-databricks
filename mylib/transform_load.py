@@ -45,6 +45,3 @@ def load(dataset="/workspaces/mts79-sqlite-lab/data/births.csv"):
     conn.commit()
     conn.close()
     return "birthsDB.db"
-
-if __name__ == "__main__":
-    load()
