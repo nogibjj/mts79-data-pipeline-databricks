@@ -29,3 +29,6 @@ def extract(
             f.write(r.content)
 
     return file_path, file_path2
+
+if __name__ == "__main__":
+    extract()
