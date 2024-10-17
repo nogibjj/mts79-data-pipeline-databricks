@@ -1,14 +1,14 @@
 """
-Test suite for ETL-Query script.
+Test for the ETL and query functions.
 """
 
 import subprocess
 
 
 def test_extract():
-    """Tests the extract() function."""
+    """tests extract()"""
     result = subprocess.run(
-        ["python", "main.py"],
+        ["python", "main.py", "extract"],
         capture_output=True,
         text=True,
         check=True,
@@ -18,9 +18,9 @@ def test_extract():
 
 
 def test_transform_load():
-    """Tests the transform_load() function."""
+    """tests transform_load()"""
     result = subprocess.run(
-        ["python", "main.py"],
+        ["python", "main.py", "transform_load"],
         capture_output=True,
         text=True,
         check=True,
@@ -29,50 +29,22 @@ def test_transform_load():
     assert "Transforming data..." in result.stdout
 
 
-def test_create_record():
-    """Tests the create_record() function."""
+def test_general_query():
+    """tests general_query with the births datasets"""
     result = subprocess.run(
         [
             "python",
             "main.py",
+            "general_query",
+            """SELECT t1.day_of_week,
+                      AVG(t1.births) as avg_daily_births,
+                      COUNT(*) as total_days_recorded
+                 FROM default.births2000 t1
+                 JOIN default.births1994 t2 ON t1.year = t2.year
+                 GROUP BY t1.day_of_week
+                 ORDER BY avg_daily_births DESC
+                 LIMIT 3""",
         ],
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    assert result.returncode == 0
-    assert "Querying data..." in result.stdout
-
-
-def test_read_data():
-    """Tests the read_data() function."""
-    result = subprocess.run(
-        ["python", "main.py"],
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    assert result.returncode == 0
-
-
-def test_update_record():
-    """Tests the update_record() function."""
-    result = subprocess.run(
-        [
-            "python",
-            "main.py",
-        ],
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    assert result.returncode == 0
-
-
-def test_delete_record():
-    """Tests the delete_record() function."""
-    result = subprocess.run(
-        ["python", "main.py"],
         capture_output=True,
         text=True,
         check=True,
@@ -83,7 +55,4 @@ def test_delete_record():
 if __name__ == "__main__":
     test_extract()
     test_transform_load()
-    test_create_record()
-    test_read_data()
-    test_update_record()
-    test_delete_record()
+    test_general_query()
