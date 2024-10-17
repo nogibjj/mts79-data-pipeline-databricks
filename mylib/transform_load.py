@@ -4,17 +4,17 @@ import pandas as pd
 from dotenv import load_dotenv
 
 # load the csv file and insert into Databricks
-def load(dataset1="data/births2000.csv", dataset2="data/births1994.csv"):
+def load(dataset1="data/births2000.csv", dataset2="data/births1994.csv", nrows=200):
     """Transforms and Loads data into the local Databricks database"""
     
     # Load the datasets
-    df1 = pd.read_csv(dataset1, delimiter=",")
-    df2 = pd.read_csv(dataset2, delimiter=",")
+    df1 = pd.read_csv(dataset1, delimiter=",", nrows=nrows)
+    df2 = pd.read_csv(dataset2, delimiter=",", nrows=nrows)
     
     # Load environment variables
     load_dotenv()
     server_h = os.getenv("SERVER_HOSTNAME")
-    access_token = os.getenv("ACCESS_TOKEN")
+    access_token = os.getenv("PERSONAL_TOKEN")
     http_path = os.getenv("HTTP_PATH")
     
     # Connect to Databricks SQL
@@ -40,7 +40,6 @@ def load(dataset1="data/births2000.csv", dataset2="data/births1994.csv"):
                 )
                 """
             )
-            # Insert data in bulk for efficiency
             insert_query = "INSERT INTO Births2000DB VALUES (?, ?, ?, ?, ?)"
             data_to_insert = df1.values.tolist()  # Convert the dataframe to a list of lists
             c.executemany(insert_query, data_to_insert)
