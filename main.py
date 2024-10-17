@@ -1,29 +1,50 @@
-"""
-ETL-Query script
-"""
-
+import sys
+import argparse
 from mylib.extract import extract
-from mylib.transform_load import load
-from mylib.query import create_record, read_data, update_record, delete_record
+from mylib.transform_load import transform_and_load
+from mylib.query import general_query
 
-# Extract
-print("Extracting data...")
-extract()
+def handle_arguments(args):
+    """Handle CLI arguments."""
+    parser = argparse.ArgumentParser(description="ETL-Query script")
+    
+    # Define actions for the CLI
+    parser.add_argument(
+        "action",
+        choices=[
+            "extract",
+            "transform_load",
+            "general_query",
+        ],
+        help="Choose the action to perform: extract, transform_load, or general_query"
+    )
 
-# Transform and load
-print("Transforming data...")
-load()
+    # If the action is "general_query", expect a query string
+    if "general_query" in args:
+        parser.add_argument(
+            "query",
+            help="SQL query to be executed"
+        )
+    
+    # Parse the arguments
+    return parser.parse_args(args)
 
-# Query
-print("Querying data...")
-create_record(1999, 11, 17, 3, 77777)
+def main():
+    """Handle all CLI commands."""
+    # Get CLI arguments
+    args = handle_arguments(sys.argv[1:])
+    
+    # Perform the appropriate action based on the user's input
+    if args.action == "extract":
+        print("Extracting data...")
+        extract()  # Call the extract function to download data
+    elif args.action == "transform_load":
+        print("Transforming and loading data...")
+        transform_and_load()  # Call the transform_and_load function to process data
+    elif args.action == "general_query":
+        general_query(args.query)  # Run a SQL query against the database
+    else:
+        print(f"Unknown action: {args.action}")
 
-# Read the first 10 rows of the data
-data = read_data()
-print(data)
-
-# Update a record
-update_record(7, 2000, 1, 1, 6, 9100)
-
-# Delete a record
-delete_record(8)
+if __name__ == "__main__":
+    main()
