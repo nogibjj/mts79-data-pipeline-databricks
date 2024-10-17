@@ -1,4 +1,4 @@
-# SQLite Lab
+# Complex SQL Query for a MySQL Database
 
 [![CICD](https://github.com/nogibjj/mts79-sqlite-lab/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/mts79-sqlite-lab/actions/workflows/cicd.yml)
 
