@@ -1,7 +1,7 @@
 import sys
 import argparse
-from mylib import extract
-from mylib import transform_load
+from mylib.extract import extract
+from mylib.transform_load import load
 from mylib.query import general_query
 
 def handle_arguments(args):
@@ -13,7 +13,7 @@ def handle_arguments(args):
         "action",
         choices=[
             "extract",
-            "transform_load",
+            "load",
             "general_query",
         ],
         help="Choose the action to perform: extract, transform_load, or general_query"
@@ -38,9 +38,9 @@ def main():
     if args.action == "extract":
         print("Extracting data...")
         extract()  # Call the extract function to download data
-    elif args.action == "transform_load":
+    elif args.action == "load":
         print("Transforming and loading data...")
-        transform_load()  # Call the transform_and_load function to process data
+        load()  # Call the transform_and_load function to process data
     elif args.action == "general_query":
         general_query(args.query)  # Run a SQL query against the database
     else:
