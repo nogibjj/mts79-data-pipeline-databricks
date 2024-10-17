@@ -25,4 +25,4 @@ transform_load:
 	python main.py transform_load
 
 query:
-	python main.py general_query "SELECT t1.day_of_week, AVG(t1.births) as avg_daily_births, COUNT(*) as total_days_recorded FROM default.births2000 t1 JOIN default.births1994 t2 ON t1.year = t2.year GROUP BY t1.day_of_week ORDER BY avg_daily_births DESC LIMIT 3;"
+	python main.py general_query "SELECT COALESCE(t1.day_of_week, t2.day_of_week) AS day_of_week, AVG(t1.births) AS avg_births_2000,AVG(t2.births) AS avg_births_1994,COUNT(t1.date_of_month) AS days_recorded_2000,COUNT(t2.date_of_month) AS days_recorded_1994 FROM default.births2000db t1 FULL OUTER JOIN default.births1994db t2 ON t1.day_of_week = t2.day_of_week GROUP BY COALESCE(t1.day_of_week, t2.day_of_week) ORDER BY day_of_week;"
