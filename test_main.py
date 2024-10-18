@@ -25,7 +25,7 @@ def test_transform_load():
         check=True,
     )
     assert result.returncode == 0
-    assert "Transforming data..." in result.stdout
+    assert "Transforming and loading data..." in result.stdout
 
 
 def test_general_query():
