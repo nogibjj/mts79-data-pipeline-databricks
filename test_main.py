@@ -34,6 +34,7 @@ def test_general_query():
         [
             "python",
             "main.py",
+            "general_query"
             """SELECT t1.day_of_week,
                       AVG(t1.births) as avg_daily_births,
                       COUNT(*) as total_days_recorded
