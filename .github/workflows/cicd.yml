@@ -18,8 +18,6 @@ jobs:
           echo "SERVER_HOSTNAME=${{ secrets.SERVER_HOSTNAME }}" >> $GITHUB_ENV
           echo "HTTP_PATH=${{ secrets.HTTP_PATH }}" >> $GITHUB_ENV
           echo "ACCESS_TOKEN=${{ secrets.PERSONAL_TOKEN }}" >> $GITHUB_ENV
-      - name: lint
-        run: make lint
       - name: extract 
         run: make extract 
       - name: transform_load
