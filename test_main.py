@@ -3,7 +3,7 @@ Test for the ETL and query functions.
 """
 
 import subprocess
-
+from main import main
 
 def test_extract():
     """tests extract()"""
