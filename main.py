@@ -33,7 +33,7 @@ def main():
     """Handle all CLI commands."""
     # Get CLI arguments
     args = handle_arguments(sys.argv[1:])
-    
+    print(args)
     # Perform the appropriate action based on the user's input
     if args.action == "extract":
         print("Extracting data...")
