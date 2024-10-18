@@ -1,6 +1,6 @@
 # Complex SQL Query for a MySQL Database
 
-
+[![CICD](https://github.com/nogibjj/mts79-sql-lab-individual-project6/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/mts79-sql-lab-individual-project6/actions/workflows/cicd.yml)
 
 ## Project Overview
 The objective of this project is to develop an ETL-Query pipeline using a cloud service, such as Databricks. This pipeline will encompass several key tasks, including extracting data from [FiveThirtyEight's data repository](https://github.com/fivethirtyeight/data), cleaning and transforming the data, and subsequently loading it into the Databricks SQL Warehouse. With the data in place, we will have the capability to execute complex queries that involve operations such as joining tables, aggregating data, and sorting results. This will be achieved by establishing a robust database connection to Databricks.
