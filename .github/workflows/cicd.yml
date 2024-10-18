@@ -29,6 +29,10 @@ jobs:
 
         run: make query
       - name: test
+        env: 
+          SERVER_HOSTNAME: ${{ secrets.SERVER_HOSTNAME }}
+          HTTP_PATH: ${{ secrets.HTTP_PATH }}
+          PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         run: make test
       - name: format
         run: make format
