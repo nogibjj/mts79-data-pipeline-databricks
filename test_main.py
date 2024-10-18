@@ -3,7 +3,6 @@ Test for the ETL and query functions.
 """
 
 import subprocess
-from main import main
 
 def test_extract():
     """tests extract()"""
@@ -20,7 +19,7 @@ def test_extract():
 def test_transform_load():
     """tests transform_load()"""
     result = subprocess.run(
-        ["python", "main.py", "transform_load"],
+        ["python", "main.py", "load"],
         capture_output=True,
         text=True,
         check=True,
@@ -35,7 +34,6 @@ def test_general_query():
         [
             "python",
             "main.py",
-            "general_query",
             """SELECT t1.day_of_week,
                       AVG(t1.births) as avg_daily_births,
                       COUNT(*) as total_days_recorded
