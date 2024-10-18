@@ -28,41 +28,42 @@ def load(dataset1="data/births2000.csv", dataset2="data/births1994.csv", nrows=2
         # Check and create table for births2000
         c.execute("SHOW TABLES FROM default LIKE 'births2000*'")
         result = c.fetchall()
-        if not result:
-            c.execute(
-                """
-                CREATE TABLE IF NOT EXISTS Births2000DB (
-                    year int,
-                    month int,
-                    date_of_month int,
-                    day_of_week int,
-                    births int
-                )
-                """
-            )
-            insert_query = "INSERT INTO Births2000DB VALUES (?, ?, ?, ?, ?)"
-            data_to_insert = df1.values.tolist()  # Convert the dataframe to a list of lists
-            c.executemany(insert_query, data_to_insert)
+        # if not result:
+        #     c.execute(
+        #         """
+        #         CREATE TABLE IF NOT EXISTS Births2000DB (
+        #             year int,
+        #             month int,
+        #             date_of_month int,
+        #             day_of_week int,
+        #             births int
+        #         )
+        #         """
+        #     )
+        #     insert_query = "INSERT INTO Births2000DB VALUES (?, ?, ?, ?, ?)"
+        #     data_to_insert = df1.values.tolist()  # Convert the dataframe to a list of lists
+        #     c.executemany(insert_query, data_to_insert)
 
         # Check and create table for births1994
         c.execute("SHOW TABLES FROM default LIKE 'births1994*'")
         result = c.fetchall()
-        if not result:
-            c.execute(
-                """
-                CREATE TABLE IF NOT EXISTS Births1994DB (
-                    year int,
-                    month int,
-                    date_of_month int,
-                    day_of_week int,
-                    births int
-                )
-                """
-            )
-            # Insert data in bulk for efficiency
-            insert_query = "INSERT INTO Births1994DB VALUES (?, ?, ?, ?, ?)"
-            data_to_insert = df2.values.tolist()  # Convert the dataframe to a list of lists
-            c.executemany(insert_query, data_to_insert)
+        print(result)
+        # if not result:
+        #     c.execute(
+        #         """
+        #         CREATE TABLE IF NOT EXISTS Births1994DB (
+        #             year int,
+        #             month int,
+        #             date_of_month int,
+        #             day_of_week int,
+        #             births int
+        #         )
+        #         """
+        #     )
+        #     # Insert data in bulk for efficiency
+        #     insert_query = "INSERT INTO Births1994DB VALUES (?, ?, ?, ?, ?)"
+        #     data_to_insert = df2.values.tolist()  # Convert the dataframe to a list of lists
+        #     c.executemany(insert_query, data_to_insert)
 
         c.close()
 
