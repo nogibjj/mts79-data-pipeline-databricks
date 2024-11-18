@@ -36,4 +36,8 @@ jobs:
         run: make test
       - name: format
         run: make format
+      - name: run databricks job 
+        run: make job
+      - name: deploy
+        run: make deploy
       
