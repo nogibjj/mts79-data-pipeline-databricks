@@ -1,50 +1,31 @@
-import sys
-import argparse
+"""
+Main CLI or app entry point
+"""
+
 from mylib.extract import extract
 from mylib.transform_load import load
-from mylib.query import general_query
-
-def handle_arguments(args):
-    """Handle CLI arguments."""
-    parser = argparse.ArgumentParser(description="ETL-Query script")
-    
-    # Define actions for the CLI
-    parser.add_argument(
-        "action",
-        choices=[
-            "extract",
-            "load",
-            "general_query",
-        ],
-        help="Choose the action to perform: extract, transform_load, or general_query"
-    )
-
-    # If the action is "general_query", expect a query string
-    if "general_query" in args:
-        parser.add_argument(
-            "query",
-            help="SQL query to be executed"
-        )
-    
-    # Parse the arguments
-    return parser.parse_args(args)
-
-def main():
-    """Handle all CLI commands."""
-    # Get CLI arguments
-    args = handle_arguments(sys.argv[1:])
-    print(args)
-    # Perform the appropriate action based on the user's input
-    if args.action == "extract":
-        print("Extracting data...")
-        extract()  # Call the extract function to download data
-    elif args.action == "load":
-        print("Transforming and loading data...")
-        load()  # Call the transform_and_load function to process data
-    elif args.action == "general_query":
-        general_query(args.query)  # Run a SQL query against the database
-    else:
-        print(f"Unknown action: {args.action}")
+from mylib.query import query_transform, viz
+import os
 
 if __name__ == "__main__":
-    main()
+    # Get the current working directory
+    current_directory = os.getcwd()
+    print(f"Current Directory: {current_directory}")
+    
+    # Call the extract function from the extract module
+    print("Starting extraction...")
+    extract()
+    
+    # Call the load function from the transform_load module
+    print("Starting load process...")
+    load()
+    
+    # Call the query_transform function from the query_viz module
+    print("Starting query transformation...")
+    query_transform()
+    
+    # Call the viz function from the query_viz module
+    print("Starting visualization...")
+    viz()
+
+    print("Process completed successfully.")
